@@ -6,9 +6,10 @@ root.title("Нагадувач перерви")
 root.resizable(0, 0)
 
 # Оголошення змінних
-remaining_time = 1200 # 20 хвилин у секундах
+remaining_time = 1200  # 20 хвилин у секундах
 is_timer_running = False
 number_of_twenty = 0
+
 
 # Функції
 def update_timer():
@@ -16,8 +17,11 @@ def update_timer():
     if is_timer_running:
         if remaining_time > 0:
             remaining_time -= 1
-            mins, secs = divmod(remaining_time, 60) # Ділення з остачею, 1-ше значення, mins - частка, 2-ге, secs - остача
-            time_label["text"] = f"{mins:02}:{secs:02}" # 02 - відображається у 2-х цифрах
+            # Ділення з остачею, 1-ше значення, mins - частка,
+            # 2-ге, secs - остача
+            mins, secs = divmod(remaining_time, 60)
+            # 02 - відображається у 2-х цифрах
+            time_label["text"] = f"{mins:02}:{secs:02}"
             root.after(1000, update_timer)
         else:
             is_timer_running = False
@@ -26,8 +30,14 @@ def update_timer():
             start_btn["state"] = "normal"
             pause_btn["state"] = "disabled"
             number_of_twenty += 1
-            number_of_twenty_label["text"] = f"Кількість 20-хвилинок: {number_of_twenty}"
-            messagebox.showinfo("Перерва!", "Подивіться 20 секунд на предмети, що на відстані 6 метрів!")
+            number_of_twenty_label["text"] = (
+                f"Кількість 20-хвилинок: {number_of_twenty}"
+            )
+            messagebox.showinfo(
+                "Перерва!",
+                "Подивіться 20 секунд на предмети, що на відстані 6 метрів!"
+            )
+
 
 def start():
     global is_timer_running, remaining_time
@@ -36,6 +46,7 @@ def start():
         start_btn["state"] = "disabled"
         pause_btn["state"] = "normal"
         update_timer()
+
 
 def pause():
     global is_timer_running
@@ -46,7 +57,8 @@ def pause():
         is_timer_running = True
         pause_btn["text"] = "Пауза"
         update_timer()
-        
+
+
 # Створення віджетів
 instruction = Label(text='Коли сядете за екран, натисніть "Старт"')
 instruction.pack()
